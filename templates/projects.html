@@ -1,0 +1,72 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<div class="row">
+    <div class="col-md-10 offset-md-3">
+        <div class="col-lg-8">
+            <h3>Projeler</h3>
+            <hr>
+        </div>
+    </div>
+</div>
+<div class ="row">
+    <div class="col-md-10 offset-md-3">
+        <div class="col-lg-8">
+            <form>
+                 {% csrf_token %} 
+                <input type="text" name = "keyword" class="input-sm" maxlength="64" placeholder="Ara...">
+              <button type="submit" class="btn btn-danger">Ara</button>
+            </form>
+      </div>
+    </div>
+
+</div>
+
+{% if projects %}
+{% for project in projects %}
+<!-- Page Content -->
+
+
+<div class="row">
+    <div class="col-md-10 offset-md-3">
+        <!-- Post Content Column -->
+        <div class="col-lg-8">
+
+            <!-- Title -->
+            <a href="#">
+                <h1 class="mt-4">{{project.projectName}}</h1>
+            </a>
+
+            <!-- Author -->
+            <p class="lead">
+
+                <a href="#">{{project.projectManager}}</a> tarafından yayınlandı
+            </p>
+
+            <hr>
+
+            <!-- Date/Time -->
+            <p>Oluşturma Tarihi {{project.created_date}}</p>
+
+            <hr>
+           
+            
+         
+
+        </div>
+    </div>
+
+</div>
+<!-- /.row -->
+{% endfor %}
+
+
+{% else %}
+<div class="alert alert-danger">
+    Proje Bulunamadı
+</div>
+
+{% endif %}
+
+
+{% endblock body %}

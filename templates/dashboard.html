@@ -1,0 +1,201 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+<h3>Kontrol Paneli</h3>
+<hr>
+<p>
+  Hoşgeldiniz, <small>{{request.user.username}}</small>
+</p>
+{% if projectManager %}
+<hr>
+<a class="btn btn-danger" href="{% url 'p_manager:addprojects' %}">Proje Ekle</a>
+<hr>
+{% elif employee %}
+<hr>
+<p>Çalışan Portalı...</p>
+<hr>
+{% endif %}
+
+{% if projectManager %}
+
+{% if projects %}
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Proje</th>
+      <th scope="col">Yönetici</th>
+      <th scope="col">Tarih</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for project in projects %}
+    <tr>
+      <th scope="row">{{project.id}}</th>
+      <td><a href="#">{{project.projectName}}</a></td>
+      <td>{{project.projectManager.username}}</td>
+      <td>{{project.created_date}}</td>
+      <td>{{project.update_date}}</td>
+      <td><a href="{% url 'p_manager:updateprojects' project.id %}" class="btn btn-info">Güncelle</a></td>
+      <td><a href="{% url 'p_manager:deleteprojects' project.id %}" class="btn btn-info">Sil</a></td>
+
+    </tr>
+    {% endfor %}
+
+
+  </tbody>
+</table>
+
+<br>
+<br><br>
+
+<h3>Verilen Görevler</h3>
+<hr>
+<a class="btn btn-danger" href="{% url 'p_manager:addtask' %}">Görev Ekle</a>
+<hr>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Proje</th>
+      <th scope="col">Yönetici</th>
+      <th scope="col">Durumu</th>
+      <th scope="col">Zaman Durumu</th>
+      <th scope="col">Veriliş Tarihi</th>
+      <th scope="col">Güncelleme Tarihi</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for task in tasks %}
+    <tr>
+      <th scope="row">{{task.id}}</th>
+      <td><a href="#">{{task.project.projectName}}</a></td>
+      <td>{{task.tasksManager.username}}</td>
+      {% if task.status == "1" %}
+      <td><span class="badge badge-warning">Durdu</span></td>
+      {% elif task.status == "2" %}
+      <td><span class="badge badge-info">Çalışıyor</span></td>
+      {% else %}
+      <td><span class="badge badge-success">Bitti</span></td>
+      {% endif %}
+
+      {% if task.due == "1" %}
+      <td><span class="badge badge-info">Zamanı Yaklaşıyor</span>
+        <a href="{% url 'employee:updatedue' task.id %}" class="btn btn-info">Güncelle</a></td>
+      {% elif task.due == "2" %}
+      <td><span class="badge badge-danger">Zamanı Aştı</span>
+        <a href="{% url 'employee:updatedue' task.id %}" class="btn btn-info">Güncelle</a></td>
+      {% else %}
+      <td><span class="badge badge-success">Bitti</span>
+        <a href="{% url 'employee:updatedue' task.id %}" class="btn btn-info">Güncelle</a></td>
+      {% endif %}
+      <td>{{task.created_date}}</td>
+      <td>{{task.update_date}}</td>
+      <td><a href="#" class="btn btn-info">Güncelle</a></td>
+      <td><a href="#" class="btn btn-info">Sil</a></td>
+
+    </tr>
+    {% endfor %}
+
+
+  </tbody>
+</table>
+
+{% else %}
+<diV class="alert alert-danger">Henüz Proje Bulunmuyor</diV>
+{% endif %}
+
+{% elif employee %}
+
+{% if projects %}
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Proje</th>
+      <th scope="col">Yönetici</th>
+      <th scope="col">Tarih</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for project in projects %}
+    <tr>
+      <th scope="row">{{project.id}}</th>
+      <td><a href="#">{{project.projectName}}</a></td>
+      <td>{{project.projectManager.username}}</td>
+      <td>{{project.created_date}}</td>
+    </tr>
+    {% endfor %}
+
+
+  </tbody>
+</table>
+<br>
+<br>
+<br>
+<h3>Görevlerim</h3>
+<hr>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Proje</th>
+      <th scope="col">Yönetici</th>
+      <th scope="col">Durumu</th>
+      <th scope="col">Süre Durumu</th>
+      <th scope="col">Veriliş Tarihi</th>
+      <th scope="col">Güncelleme Tarihi</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for task in tasks %}
+    <tr>
+      <th scope="row">{{task.id}}</th>
+      <td><a href="#">{{task.project.projectName}}</a></td>
+      <td>{{task.tasksManager.username}}</td>
+      
+      {% if task.status == "1" %}
+      <td><span class="badge badge-warning">Durdu</span>
+        <a href="{% url 'employee:updatestatus' task.id %}" class="btn btn-info">Güncelle</a></td>
+      {% elif task.status == "2" %}
+      <td><span class="badge badge-info">Çalışıyor</span>
+        <a href="{% url 'employee:updatestatus' task.id %}" class="btn btn-info">Güncelle</a></td>
+      {% elif task.status == "3" %}
+      <td><span class="badge badge-success">Bitti</span>
+        <a href="{% url 'employee:updatestatus' task.id %}" class="btn btn-info">Güncelle</a></td>
+      {% else %}
+      <td><span class="badge badge-secondary">deneme</span>
+        <a href="{% url 'employee:updatestatus' task.id %}" class="btn btn-info">Güncelle</a></td>
+      {% endif %}
+
+      {% if task.due == "1" %}
+      <td><span class="badge badge-info">Zamanı Yaklaşıyor</span>
+        
+      </td>
+      {% elif task.due == "2" %}
+      <td><span class="badge badge-danger">Zamanı Aştı</span>
+        
+      {% elif task.due == "3" %}
+      <td><span class="badge badge-success">Bitti</span>
+        
+      {% endif %}
+
+      <td>{{task.created_date}}</td>
+      <td>{{task.update_date}}</td>
+      
+      
+      <td><a href="#" class="btn btn-info">Sil</a></td>
+    </tr>
+    {% endfor %}
+
+
+  </tbody>
+</table>
+{% else %}
+<diV class="alert alert-danger">Bulunuduğunuz Proje Bulunmuyor</diV>
+{% endif %}
+
+
+{% endif %}
+{% endblock body %}

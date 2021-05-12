@@ -1,0 +1,61 @@
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{% url 'index' %}">Derin Team</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+      aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+      <ul class="navbar-nav me-auto mb-2 mb-md-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{% url 'index' %}">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'project:projects' %}">Projeler</a>
+        </li>
+
+
+      </ul>
+      {% if request.user.is_authenticated %}
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'user:logoutUser' %}">Çıkış Yap</a>
+        </li>
+        {% if projectManager %}
+        <li class="nav-item">
+          <a class="nav-link" href="#">Yönetici İşlemleri</a>
+        </li>
+        {% elif employee %}
+        <li class="nav-item">
+          <a class="nav-link" href="#">Çalışan İşlemleri</a>
+        </li>
+        {% endif %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'project:dashboard' %}">Kontrol Paneli</a>
+        </li>
+      </ul>
+      {% else %}
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'user:loginUser' %}">Giriş Yap</a>
+        </li>
+
+        <li class="nav-item dropdown ">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            Üye Ol
+          </a>
+          <ul class="dropdown-menu"  style="right: 0; left: auto;" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="{% url 'p_manager:register'  %}"> Üye Ol(Yönetici)</a></li>
+            <li><a class="dropdown-item" href="{% url 'employee:register'  %}"> Üye Ol(Çalışan)</a></li>
+
+          </ul>
+        </li>
+        
+      </ul>
+
+
+      {% endif %}
+    </div>
+  </div>
+</nav>
