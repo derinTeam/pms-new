@@ -92,8 +92,8 @@
       {% endif %}
       <td>{{task.created_date}}</td>
       <td>{{task.update_date}}</td>
-      <td><a href="#" class="btn btn-info">Güncelle</a></td>
-      <td><a href="#" class="btn btn-info">Sil</a></td>
+      <td><a href="{% url 'p_manager:updateTask' task.id %}" class="btn btn-info">İçeriği Güncelle</a></td>
+      <td><a href="{% url 'p_manager:deleteTask' task.id %}" class="btn btn-info">Sil</a></td>
 
     </tr>
     {% endfor %}

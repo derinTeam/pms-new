@@ -22,8 +22,8 @@
 
 </div>
 
-{% if projects %}
-{% for project in projects %}
+{% if all_projects %}
+{% for project in all_projects %}
 <!-- Page Content -->
 
 
@@ -33,7 +33,7 @@
         <div class="col-lg-8">
 
             <!-- Title -->
-            <a href="#">
+            <a href="{% url 'project:projectDetail' project.id %}">
                 <h1 class="mt-4">{{project.projectName}}</h1>
             </a>
 

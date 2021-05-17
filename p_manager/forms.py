@@ -51,3 +51,4 @@ class ManagerRegisterForms(forms.Form):
 class LoginForm(forms.Form):
     username = forms.EmailField(max_length = 50,label = "Email Adresi")
     password = forms.CharField(max_length = 20,label = "Parola", widget = forms.PasswordInput)
+

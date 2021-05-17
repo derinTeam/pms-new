@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'crispy_forms',
     'p_manager',
     'employee',
-    'mysite'
+    'mysite',
+    'user'
 ]
 
 MIDDLEWARE = [

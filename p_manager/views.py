@@ -91,4 +91,25 @@ def addtask(request):
         messages.success(request,"Görev Başarılı Bir Şekilde Eklendi")
         return redirect("project:dashboard")
 
-    return render(request,"task-add.html",{"form":form})    
+    return render(request,"task-add.html",{"form":form}) 
+
+@login_required(login_url = "user:loginUser")
+def updateTask(request,id):
+    task = get_object_or_404(Tasks,id = id)
+    form = TasksForms(request.POST or None,instance = task)
+    if form.is_valid():
+        task = form.save(commit=False)
+        task.save()
+        form.save_m2m()
+        messages.success(request,"Görev Başarılı Bir Şekilde Güncellendi")
+        return redirect("project:dashboard")
+
+    return render(request,"task-update.html",{"form":form}) 
+
+@login_required(login_url = "user:loginUser")
+def deleteTask(request,id):
+
+    task = get_object_or_404(Tasks,id = id)
+    task.delete()
+    messages.info(request,"Görev Silindi")
+    return redirect("project:dashboard")

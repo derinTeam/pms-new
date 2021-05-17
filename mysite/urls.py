@@ -18,11 +18,12 @@ from django.contrib import admin
 from django.urls import path,include
 from django.urls import path
 from project import views
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',views.index,name = "index"),
     path('p_manager/',include("p_manager.urls",namespace = 'p_manager')),
     path('project/',include("project.urls",namespace = 'project')),
     path('employee/',include("employee.urls",namespace = 'employee')),
-    path('user/',include("user.urls",namespace = 'user'))
+    path('user/',include("user.urls",namespace = 'user')),
 ]

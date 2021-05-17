@@ -1,4 +1,7 @@
-from django.shortcuts import render, redirect
+import project
+from user.models import Comment
+from project.models import Projects
+from django.shortcuts import render, redirect,get_object_or_404,reverse
 from django.contrib import messages
 from .forms import LoginForm
 from django.contrib.auth.models import User
@@ -54,3 +57,4 @@ def userclaim(request):
             }
 
     return render(request,"navbar.html",context)
+

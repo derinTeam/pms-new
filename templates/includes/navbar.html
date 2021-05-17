@@ -21,15 +21,7 @@
         <li class="nav-item">
           <a class="nav-link" href="{% url 'user:logoutUser' %}">Çıkış Yap</a>
         </li>
-        {% if projectManager %}
-        <li class="nav-item">
-          <a class="nav-link" href="#">Yönetici İşlemleri</a>
-        </li>
-        {% elif employee %}
-        <li class="nav-item">
-          <a class="nav-link" href="#">Çalışan İşlemleri</a>
-        </li>
-        {% endif %}
+        
         <li class="nav-item">
           <a class="nav-link" href="{% url 'project:dashboard' %}">Kontrol Paneli</a>
         </li>
