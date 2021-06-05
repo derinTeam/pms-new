@@ -1,5 +1,6 @@
 from django import forms
-from .models import Projects, ProjectDetail, Tasks, ManagerEmployees
+from django.db.models import fields
+from .models import Projects, ProjectDetail, Tasks, ManagerEmployees,ProjectDocument
 
 
 class ProjectForms(forms.ModelForm):
@@ -34,3 +35,9 @@ class StatusDueUpdate(forms.ModelForm):
     class Meta:
         model = Tasks
         fields = ["status","due"]
+
+
+class ProjectDocumentForm(forms.ModelForm):
+    class Meta:
+        model = ProjectDocument
+        fields = ["project","document"]        

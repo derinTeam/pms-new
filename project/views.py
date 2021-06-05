@@ -2,10 +2,10 @@ from django.shortcuts import render, HttpResponse, redirect, get_object_or_404, 
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .forms import ProjectForms
-from .models import Projects, ProjectDetail, Tasks
+from .models import Projects, ProjectDetail, Tasks ,Comment
 from employee.models import Employee
 from p_manager.models import ProjectManager
-from user.models import Comment
+
 # Create your views here.
 
 

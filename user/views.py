@@ -1,5 +1,5 @@
 import project
-from user.models import Comment
+from project.models import Comment
 from project.models import Projects
 from django.shortcuts import render, redirect,get_object_or_404,reverse
 from django.contrib import messages
